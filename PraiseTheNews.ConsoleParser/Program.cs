@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Data.Entity;
 using System.Linq;
+using HtmlAgilityPack;
 using PraiseTheNews.Db;
 using PraiseTheNews.Db.Migrations;
 using PraiseTheNews.Db.Model;
@@ -14,8 +15,21 @@ namespace PraiseTheNews.ConsoleParser
         {
             Console.WriteLine("Start");
             Database.SetInitializer(new MigrateDatabaseToLatestVersion<PraiseDbContext, Configuration>());
-            ParseAllNewspaperRssFeeds();
+            //ParseAllNewspaperRssFeeds();
+            ParseWebPages();
             Console.WriteLine("End");
+        }
+
+        private static void ParseWebPages()
+        {
+            HtmlWeb web = new HtmlWeb();
+            HtmlDocument document = web.Load("http://www.tv2.no");
+            var h2Nodes = document.DocumentNode.SelectNodes("//h2");
+            foreach (var h2 in h2Nodes)
+            {
+                Console.WriteLine(h2.InnerText);
+            }
+            Console.ReadKey();
         }
 
         public static void ParseAllNewspaperRssFeeds()
