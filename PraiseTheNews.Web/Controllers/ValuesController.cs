@@ -17,7 +17,7 @@ namespace PraiseTheNews.Web.Controllers
         {
             using (PraiseDbContext context = new PraiseDbContext())
             {
-                return context.PraiseCases.Include(x => x.Newspaper).OrderByDescending(x => x.PublishedDate).ToList();
+                return context.PraiseCases.Include(x => x.Newspaper).OrderByDescending(x => x.AddedDate).ToList();
             }
         }
     }

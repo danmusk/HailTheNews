@@ -57,6 +57,10 @@
     <Compile Include="Migrations\201602261307084_PublishedDate.Designer.cs">
       <DependentUpon>201602261307084_PublishedDate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201602262216248_RemoveRss.cs" />
+    <Compile Include="Migrations\201602262216248_RemoveRss.Designer.cs">
+      <DependentUpon>201602262216248_RemoveRss.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Model\Newspaper.cs" />
     <Compile Include="Model\PraiseCase.cs" />
@@ -74,6 +78,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201602261307084_PublishedDate.resx">
       <DependentUpon>201602261307084_PublishedDate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201602262216248_RemoveRss.resx">
+      <DependentUpon>201602262216248_RemoveRss.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

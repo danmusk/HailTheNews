@@ -21,7 +21,7 @@ namespace PraiseTheNews.ConsoleParser
             var dagbladetPraises = ScrapeDagbladetWebPage();
             var vgPraises = ScrapeVGWebPage();
             var nettavisenPraises = ScrapeNettavisenWebPage();
-            var allPraises = tv2Praises.Concat(dagbladetPraises).Concat(vgPraises).ToList();
+            var allPraises = tv2Praises.Concat(dagbladetPraises).Concat(vgPraises).Concat(nettavisenPraises).ToList();
             AddNewPraises(allPraises);
 
             Console.WriteLine("End");
@@ -37,6 +37,7 @@ namespace PraiseTheNews.ConsoleParser
                     var praiseExistsInDb = dbContext.PraiseCases.Any(x => x.Url == praise.Url.ToString());
                     if (praiseExistsInDb == false)
                     {
+                        praise.AddedDate = DateTimeOffset.UtcNow;
                         dbContext.PraiseCases.Add(praise);
                         newPraiseCasesFound++;
                     }
@@ -160,30 +161,24 @@ namespace PraiseTheNews.ConsoleParser
             var baseUrl = "http://www.nettavisen.no";
             HtmlWeb web = new HtmlWeb();
             HtmlDocument document = web.Load(baseUrl);
-            var rootArticleNodes = document.DocumentNode.SelectNodes("//div[contains(@class,'df-article')]");
+            var rootArticleNodes = document.DocumentNode.SelectNodes("//div[contains(@class,'df-article-content')]");
 
             var praiseArticles = new List<HtmlNode>();
             foreach (var article in rootArticleNodes)
             {
-                var articleHasPraise = article.ChildNodes.Any(x => x.InnerText.ToLower().Contains("sondre"));
+                var articleHasPraise = article.ChildNodes.Any(x => x.InnerText.ToLower().Contains("hylles"));
                 if (articleHasPraise)
                     praiseArticles.Add(article);
             }
 
             foreach (var praiseArticle in praiseArticles)
             {
-                var title = praiseArticle.SelectNodes(".//a")?.FirstOrDefault()?.GetAttributeValue("title", "");
-                var fullTitle = title;
-                var imgUrl = praiseArticle.SelectNodes(".//img")?.FirstOrDefault()?.GetAttributeValue("data-src", "");
+                var title = praiseArticle.SelectNodes(".//h3").First().SelectNodes(".//span").First().InnerText;
+                var imgUrl = praiseArticle.SelectNodes(".//img")?.FirstOrDefault()?.GetAttributeValue("src", "");
                 var articleUrl = praiseArticle.SelectNodes(".//a")?.FirstOrDefault()?.GetAttributeValue("href", "");
 
-                if (!string.IsNullOrEmpty(articleUrl))
-                    articleUrl = baseUrl + articleUrl;
-                if (!string.IsNullOrEmpty(imgUrl))
-                    imgUrl = "http:" + imgUrl;
-
                 var praiseCase = new PraiseCase();
-                praiseCase.Title = fullTitle;
+                praiseCase.Title = title;
                 praiseCase.Url = HtmlEntity.DeEntitize(articleUrl);
                 praiseCase.ImageUrl = HtmlEntity.DeEntitize(imgUrl);
                 praiseCase.NewspaperId = 3; // Nettavisen

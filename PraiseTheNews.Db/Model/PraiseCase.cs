@@ -12,6 +12,6 @@ namespace PraiseTheNews.Db.Model
         public virtual Newspaper Newspaper { get; set; }
         public int NewspaperId { get; set; }
 
-        public DateTimeOffset PublishedDate { get; set; }
+        public DateTimeOffset AddedDate { get; set; }
     }
 }
