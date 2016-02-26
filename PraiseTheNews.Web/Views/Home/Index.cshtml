@@ -1,0 +1,13 @@
+﻿<div ng-controller="praiseCtrl" class='md-padding' layout="row" layout-wrap>
+    <md-card style="width: 350px;" ng-repeat="x in praiseCases">
+        <img src="http://placehold.it/150x150" class="md-card-image" alt="user avatar">
+        <md-card-content>
+            <h2>{{ x.Title }}</h2>
+            <p>{{ x.Newspaper.Name }}</p>
+        </md-card-content>
+        <div class="md-actions" layout="row" layout-align="end center">
+            <md-button ng-href="{{ x.Url }}"  class="md-raised md-primary">Les saken</md-button>
+            @*<md-button class="md-raised">Favoritt</md-button>*@
+        </div>
+    </md-card>
+</div>
