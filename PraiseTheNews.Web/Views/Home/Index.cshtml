@@ -1,12 +1,15 @@
 ﻿<div ng-controller="praiseCtrl" class='md-padding' layout="row" layout-wrap>
     <md-card style="width: 350px;" ng-repeat="x in praiseCases">
-        <img ng-src="{{ x.ImageUrl }}" class="md-card-image">
+        <div style="display: block;">
+            <img ng-src="{{ x.ImageUrl }}" class="md-card-image" style="width: 100%">
+            
+        </div>
         <md-card-content>
             <h2>{{ x.Title }}</h2>
             <p>{{ x.Newspaper.Name }}</p>
         </md-card-content>
         <div class="md-actions" layout="row" layout-align="end center">
-            <md-button ng-href="{{ x.Url }}"  class="md-raised md-primary">Les saken</md-button>
+            <md-button ng-href="{{ x.Url }}" class="md-raised md-primary">Les saken</md-button>
         </div>
     </md-card>
 </div>

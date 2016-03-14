@@ -58,7 +58,7 @@ namespace PraiseTheNews.ConsoleParser
 
             foreach (var article in rootArticleNodes)
             {
-                var articleHasPraise = article.ChildNodes.Any(x => x.InnerText.ToLower().Contains("hylles"));
+                var articleHasPraise = article.ChildNodes.Any(x => x.InnerText.ToLower().Contains("hylles") || x.InnerText.ToLower().Contains("hyller"));
                 if (articleHasPraise)
                     praiseArticles.Add(article);
             }
@@ -94,7 +94,7 @@ namespace PraiseTheNews.ConsoleParser
 
             foreach (var article in rootArticleNodes)
             {
-                var articleHasPraise = article.ChildNodes.Any(x => x.InnerText.ToLower().Contains("hylles"));
+                var articleHasPraise = article.ChildNodes.Any(x => x.InnerText.ToLower().Contains("hylles") || x.InnerText.ToLower().Contains("hyller"));
                 if (articleHasPraise)
                     praiseArticles.Add(article);
             }
@@ -129,7 +129,7 @@ namespace PraiseTheNews.ConsoleParser
             var praiseArticles = new List<HtmlNode>();
             foreach (var article in rootArticleNodes)
             {
-                var articleHasPraise = article.ChildNodes.Any(x => x.InnerText.ToLower().Contains("hylles"));
+                var articleHasPraise = article.ChildNodes.Any(x => x.InnerText.ToLower().Contains("hylles") || x.InnerText.ToLower().Contains("hyller"));
                 if (articleHasPraise)
                     praiseArticles.Add(article);
             }
@@ -166,7 +166,7 @@ namespace PraiseTheNews.ConsoleParser
             var praiseArticles = new List<HtmlNode>();
             foreach (var article in rootArticleNodes)
             {
-                var articleHasPraise = article.ChildNodes.Any(x => x.InnerText.ToLower().Contains("hylles"));
+                var articleHasPraise = article.ChildNodes.Any(x => x.InnerText.ToLower().Contains("hylles") || x.InnerText.ToLower().Contains("hyller"));
                 if (articleHasPraise)
                     praiseArticles.Add(article);
             }
